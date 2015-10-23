@@ -1,0 +1,62 @@
+package minhasClasses;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import telas.JogoDaSa;
+
+public class Heroi extends Componente{
+	public int posX;
+	public int posY;
+	public Color cor;
+        public int vidaAtual;
+        public int vidaMax;
+        public Barra barra;
+        public int time;
+	
+	public Heroi(float x, float y, int posX, int posY, Color cor, int vidaMax, int time) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+		this.posX=posX;
+		this.posY=posY;
+		this.cor=cor;
+                this.vidaMax=vidaMax;
+                this.vidaAtual=vidaMax;
+                this.barra = new Barra(x, y, 120, 15, Color.green);
+                this.time=time;
+	}
+        
+       public void Ataque(int codigoAtaque){
+            if(codigoAtaque == 1){
+                vidaAtual -= 10;
+            } if (codigoAtaque == 2){
+            	vidaAtual -=20;
+            }
+        }
+
+	@Override
+	public void update(float time, int cameraX, int cameraY) {
+		// TODO Auto-generated method stub
+            barra.x=this.x;
+            barra.y=this.y;
+		barra.update(time,vidaAtual,vidaMax);
+	}
+
+	@Override
+	public void draw(Graphics2D dbg, float xMundo, float yMundo) {
+		// TODO Auto-generated method stub
+		
+		x=posX*JogoDaSa.squareSizex+(int)xMundo;
+		y=posY*JogoDaSa.squareSizey+(int)yMundo;
+		dbg.setColor(cor);
+		dbg.fillOval((int)x,(int)y,40,40);
+                
+                barra.draw(dbg,0,0);
+		
+		//tabuleiro.quaY=indexY*squareSizey+(int)tabuleiro.y;
+	}
+
+   
+	
+
+}
